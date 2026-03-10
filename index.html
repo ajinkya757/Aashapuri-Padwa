@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aashapuri Pro Studio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Marathi:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: sans-serif; background: #222; color: #fff; text-align: center; padding: 20px; }
+        .card { background: #fff; color: #333; padding: 20px; border-radius: 15px; max-width: 400px; margin: auto; }
+        button { width: 100%; padding: 15px; background: #800000; color: #fff; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; margin-top: 10px; }
+        #preview { width: 100%; margin-top: 20px; border-radius: 10px; display: none; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>श्री आशापुरी रचना</h2>
+    <p>Professional Banner Studio</p>
+    <button onclick="makeBanner()">Generate High-Res Banner</button>
+    <canvas id="canvas" style="display:none;"></canvas>
+    <img id="preview" alt="Your Banner">
+</div>
+
+<script>
+    function makeBanner() {
+        const c = document.getElementById('canvas');
+        const ctx = c.getContext('2d');
+        
+        // This is where we put the "Embedded" graphic
+        const bgData = "PASTE_YOUR_LONG_BASE64_STRING_HERE";
+
+        const img = new Image();
+        img.onload = function() {
+            c.width = img.width;
+            c.height = img.height;
+            
+            // 1. Draw the High-Quality Graphic
+            ctx.drawImage(img, 0, 0);
+
+            // 2. Overlay Branding (White Footer)
+            ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
+            ctx.fillRect(0, c.height - 400, c.width, 400);
+
+            // 3. Add Professional Text
+            ctx.fillStyle = "#800000";
+            ctx.textAlign = "center";
+            ctx.font = "bold 90px 'Noto Sans Marathi'";
+            ctx.fillText("श्री आशापुरी रचना", c.width/2, c.height - 280);
+            
+            ctx.font = "40px 'Noto Sans Marathi'";
+            ctx.fillText("इंटेरियर डिझायनर • आर्किटेक्चर • लॅन्डस्केप • वास्तुशास्त्र", c.width/2, c.height - 200);
+            
+            ctx.font = "bold 60px 'Noto Sans Marathi'";
+            ctx.fillText("संग्राम संजय दशपूते | ७७०९५००८७३", c.width/2, c.height - 100);
+
+            // Show Result
+            const p = document.getElementById('preview');
+            p.src = c.toDataURL("image/png");
+            p.style.display = "block";
+        };
+        img.src = bgData;
+    }
+</script>
+</body>
+</html>
